@@ -2,20 +2,15 @@ import unittest
 
 def solution(sugar):
     # sugar = int(input())
-    basket = 0
 
-    if sugar >= 15:
-        basket += sugar//5
-        sugar = sugar - basket*5
+    for a in range((sugar//5), -1, -1):
+        for b in range((sugar//3)+1):
+            if ((a*5) +(b*3)) == sugar:
+                print(f'five : {a}, three : {b}, sum : {a+b}')
+                return a+b
 
-    if sugar % 5 == 0:
-        basket += int(sugar/5)
-    elif sugar % 3 == 0:
-        basket += int(sugar/3)
-    else:
-        basket = -1
+    return -1
 
-    return basket
 
 class SolutionTest(unittest.TestCase):
     def test_solution(self):
@@ -23,7 +18,6 @@ class SolutionTest(unittest.TestCase):
         self.assertEqual(solution(3),1)
         self.assertEqual(solution(4),-1)
         self.assertEqual(solution(15),3)
-        self.assertEqual(solution(17),-1)
         self.assertEqual(solution(5),1)
         self.assertEqual(solution(30),6)
         self.assertEqual(solution(40),8)
