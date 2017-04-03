@@ -5,7 +5,7 @@ l = []
 for i in range(n):
     l.append(int(input()))
 
-for i in range(len(l)-1, 1, -1):
+for i in range(len(l)-1, 0, -1):
     index = 0
     max_num = -1000     #문제에서 값의 범위내 최소값이 -999이다.
     for j in range(i+1):
