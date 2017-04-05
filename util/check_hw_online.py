@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-USER = ['vaporize93', 'doo9713', '21pori30', 'blackhead', 'cnrjsdn',]
+USER = ['vaporize93', 'doo9713', '21pori30', 'blackhead', 'cnrjsdn', 'iowa329',]
 WEEK = {
         1: [2557, 1000, 2558, 10950, 10951, 10953, 11021,
             11022, 11718, 11719, 11720, 11721],
