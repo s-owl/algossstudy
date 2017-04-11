@@ -13,7 +13,7 @@ def sort(array, col=1):
     greater = []
 
     if len(array) > 1:
-        pivot = array[col]
+        pivot = array[0]
         for x in array:
             if x[col] < pivot[col]:
                 less.append(x)
