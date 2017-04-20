@@ -23,5 +23,6 @@ int main(){
         printf("Case #%d: %d\n", i+1, b[i]);
     }
 
+    free(b);
     return 0;
 }

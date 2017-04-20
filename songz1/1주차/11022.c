@@ -24,5 +24,7 @@ int main(){
         printf("Case #%d: %d + %d = %d\n", i+1, a[(i*2)-1], a[i*2], b[i]);
     }
 
+    free(b);
+    free(a);
     return 0;
 }
