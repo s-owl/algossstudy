@@ -1,6 +1,10 @@
+import asyncio
+import aiohttp
 import requests
 from bs4 import BeautifulSoup
 
+
+base_url = 'https://www.acmicpc.net/user/'
 USER = ['vaporize93', 'doo9713', '21pori30', 'blackhead',
         'cnrjsdn', 'iowa329', 'qlqhqlqh125', ]
 WEEK = {
@@ -14,8 +18,10 @@ WEEK = {
 
 problem = {}
 
-for u in USER:
-    html_doc = requests.get('https://www.acmicpc.net/user/'+ u).text
+async def get_user_solved_problem(u):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(base_url+u) as response:
+            html_doc = await response.text()
     soup = BeautifulSoup(html_doc, 'html.parser')
     solvs = soup.find('div', class_='panel-body').find_all('span', class_='problem_number')
     problem[u] = []
@@ -23,7 +29,16 @@ for u in USER:
     for solv in solvs:
         num = solv.a.string
         problem[u].append(num)
-        
+
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(
+    asyncio.gather(
+        *(get_user_solved_problem(u) for u in USER)
+    )
+) 
+loop.close()
+
 
 for i in WEEK.keys():
     print(f'==== {i}주차 아직 못 푼 문제 ====')
