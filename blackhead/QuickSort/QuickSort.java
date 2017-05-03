@@ -33,5 +33,3 @@ public class Quick {
     }
 }
 
-
-출처: http://hahahoho5915.tistory.com/9 [넌 잘하고 있어]
