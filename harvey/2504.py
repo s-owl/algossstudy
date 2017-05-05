@@ -3,40 +3,57 @@ import sys
 read = lambda : sys.stdin.readline()
 
 
-def solv(s):
-    brackets = s
-    stack = []
-    num = []
-    s = 0
-    t = 1
-    a = 0
+brackets = read()
+stack = []
+num = []
+s = 0
+t = 1
 
-    try:
-        for i in range(len(brackets)):
-            if brackets[i] == '(':
-                stack.append(brackets[i])
-                t *= 2
-                if brackets[i+1] == ')':
-                    num.append(t)
+for i in range(len(brackets)):
+    if brackets[i] == '(':
+        stack.append(brackets[i])
+        t *= 2
+        if brackets[i+1] == ')':
+            num.append(t)
+        elif brackets[i+1] == ']':
+            print(0)
+            exit(0)
 
-            elif brackets[i] == '[':
-                stack.append(brackets[i])
-                t *= 3
-                if brackets[i+1] == ']':
-                    num.append(t)
-            elif brackets[i] == ')':
-                stack.pop()
-                t //= 2
+    elif brackets[i] == '[':
+        stack.append(brackets[i])
+        t *= 3
+        if brackets[i+1] == ']':
+            num.append(t)
+        elif brackets[i+1] == ']':
+            print(0)
+            exit(0)
 
-            elif brackets[i] == ']':
-                stack.pop()
-                t //= 3
-    except IndexError:
-        return 0
+    elif brackets[i] == ')':
+        if len(stack) == 0:
+            print(0)
+            exit(0)
 
-    while len(num) > 0:
-        s += num.pop()
+        if stack.pop() != '(':
+            print(0)
+            exit(0)
 
-    return s
+        t //= 2
 
+    elif brackets[i] == ']':
+        if len(stack) == 0:
+            print(0)
+            exit(0)
 
+        if stack.pop() != '[':
+            print(0)
+            exit(0)
+
+        t //= 3
+
+if len(stack) > 0:
+    print(0)
+    exit(0)
+while len(num) > 0:
+    s += num.pop()
+
+print(s)
