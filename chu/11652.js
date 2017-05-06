@@ -1,3 +1,5 @@
+// 카운팅소트 라는데 이해안가서 구현 못하겠음
+
 var fs = require("fs");
 var input = fs.readFileSync("./stdin/11652").toString().split('\n')
 .filter(function(e, i){
