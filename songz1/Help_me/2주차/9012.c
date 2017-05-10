@@ -1,35 +1,41 @@
 /*
- 알고리즘 스터디_송지은
- 2017.04.18.화
- C_9012번
- */
+알고리즘 스터디_송지은
+C_9012번
+*/
 
 #include <stdio.h>
-#include <string.h>
 
-int main(){
-	char c, n;
-	int index=0;
-	char str;
+int main() {
+	int t = 0;
 
-	scanf("%d", &n);
-	fflush(stdin);
+	scanf("%d", &t);
 
-	for(int i=0; i<n; i++){
-		while((str = getchar()) != '\n'){
-			if(str == '('){
-				index++;
+	for (int i = 0; i < t; i++) {
+		char c2[51];
+		int num = 0, j = 0, k = 0;
+
+		scanf("%s", c2);
+
+		while (c2[j] != NULL) {
+			if (c2[j] == ')' && j != 0) {
+				num--;
+				k = -1;
 			}
-			else if(str == ')'){
-				index--;
+			else if (c2[j] == ')' && j == 0) {
+				num = -1;
+				break;
 			}
+			else if (c2[j] == '(') {
+				num++;
+				k = 1;
+			}
+			j++;
 		}
-		if(index == 0){
+
+		if (num == 0 && k == -1)
 			printf("YES\n");
-		}
-		else{
+		else
 			printf("NO\n");
-		}
 	}
 
 	return 0;
