@@ -22,6 +22,7 @@ function main(){
     .map((e) => e.trim().split(' ') );
 
     input.forEach((elem, index) => {
+        console.log(elem);
         if(elem[0] === '0'){
             temp[ elem[1] ][0]++;
         }else{
@@ -29,6 +30,7 @@ function main(){
         }
     });
    
+        console.log(temp);
     for( index in temp ){
         room += Math.round(temp[index][0] / 2);
         room += Math.round(temp[index][1] / 2);
@@ -37,3 +39,5 @@ function main(){
 }
 
 main();
+
+// 런타임 에러 ㅠㅠ
