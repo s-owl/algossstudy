@@ -1,22 +1,42 @@
 import asyncio
 import aiohttp
-import requests
 from bs4 import BeautifulSoup
 
 
 base_url = 'https://www.acmicpc.net/user/'
-USER = ['vaporize93', 'doo9713', '21pori30', 'blackhead',
-        'cnrjsdn', 'iowa329', 'qlqhqlqh125', ]
-WEEK = {
-        1: [2557, 1000, 2558, 10950, 10951, 10953, 11021,
-            11022, 11718, 11719, 11720, 11721],
-        2: [2750, 2751, 11650, 11651, 10814, 10828, 9012,
-            10430, 2609, 1934, 9613],
-        3: [10825, 10989, 11652, 11004, 1427, 1181, 10799],
-        4: [1874, 2504, 1157, 10809, 13300, 13301, 2920, 1026],
-        }
+USERS = ['vaporize93', 'doo9713', '21pori30', 'blackhead', 'cnrjsdn', 'iowa329', 'qlqhqlqh125', ]
+USER_COLORS = {'vaporize93': 1,
+          'doo9713': 2,
+          '21pori30': 3,
+          'blackhead': 4,
+          'cnrjsdn': 5,
+          'iowa329': 6,
+          'qlqhqlqh125': 7,
+}
+PROBLEMS = {
+    '1회차': [2557, 1000, 2558, 10950, 10951, 10953, 11021, 11022, 11718, 11719, 11720, 11721],
+    '2회차': [2750, 2751, 11650, 11651, 10814, 10828, 9012, 10430, 2609, 1934, 9613],
+    '3회차': [10825, 10989, 11652, 11004, 1427, 1181, 10799],
+    '4회차': [1874, 2504, 1157, 10809, 13300, 13301, 2920, 1026],
+    'DP-1': [1463, 11726, 11727, 9095, 11052, 10844, 11057, 2193, 2156, 2133, 9461, 11048],
+    'level1': [1000, 1001, 2557, 1008, 2438, 2741, 2742, 2439, 2440, 2739,
+               2441, 1003, 8393, 10998, 10430, 10869, 1924, 9498, 1110, 2558],
+}
 
 problem = {}
+
+
+def colored_user(user):
+    if user in USER_COLORS.keys():
+        return colored(user, USER_COLORS[user])
+    return user
+
+
+def colored(string, color=7):
+    if 0 < color < 8:
+        string = '\x1b[1;%s;40m%s\x1b[0m' % (color+30, string)
+    return string
+
 
 async def get_user_solved_problem(u):
     async with aiohttp.ClientSession() as session:
@@ -34,18 +54,16 @@ async def get_user_solved_problem(u):
 loop = asyncio.get_event_loop()
 loop.run_until_complete(
     asyncio.gather(
-        *(get_user_solved_problem(u) for u in USER)
+        *(get_user_solved_problem(u) for u in USERS)
     )
 ) 
 loop.close()
 
 
-for i in WEEK.keys():
-    print(f'==== {i}주차 아직 못 푼 문제 ====')
+for i in PROBLEMS.keys():
+    print(f'======= {i} 아직 못 푼 문제 =======')
     for (u, ps) in problem.items():
-        l = [x for x in WEEK[i] if x not in list(map(int, ps))]
+        l = [x for x in PROBLEMS[i] if x not in list(map(int, ps))]
         if l:
-            print(f' - {u} {l}')
-        else:
-            print(f' - {u} 다풀었어요!')
+            print(f' - {colored_user(u)} {l}')
 
