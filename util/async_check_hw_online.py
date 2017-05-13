@@ -34,7 +34,7 @@ def colored_user(user):
 
 def colored(string, color=7):
     if 0 < color < 8:
-        string = '\x1b[1;%s;40m%s\x1b[0m' % (color + 30, string)
+        string = '\x1b[1;%sm%s\x1b[0m' % (color + 30, string)
     return string
 
 
@@ -59,7 +59,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         USER_COLORS = {}
         for i in range(1, len(sys.argv)):
-            USER_COLORS[sys.argv[i]] = i
+            USER_COLORS[sys.argv[i]] = (i%7)+1
 
     print('getting list ...')
     loop = asyncio.get_event_loop()
