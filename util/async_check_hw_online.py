@@ -1,3 +1,4 @@
+import sys
 import asyncio
 import aiohttp
 from bs4 import BeautifulSoup
@@ -42,6 +43,9 @@ async def get_user_solved_problem(u):
         async with session.get(base_url + u) as response:
             html_doc = await response.text()
     soup = BeautifulSoup(html_doc, 'html.parser')
+    if soup.find('div', class_='error-v1'):
+        print(f'{u} is Not Found!')
+        exit(1)
     solvs = soup.find('div', class_='panel-body').find_all('span', class_='problem_number')
     problem[u] = []
 
@@ -51,6 +55,13 @@ async def get_user_solved_problem(u):
 
 
 if __name__ == '__main__':
+
+    if len(sys.argv) > 1:
+        USER_COLORS = {}
+        for i in range(1, len(sys.argv)):
+            USER_COLORS[sys.argv[i]] = i
+
+    print('getting list ...')
     loop = asyncio.get_event_loop()
     loop.run_until_complete(
         asyncio.gather(
