@@ -2,16 +2,15 @@ import asyncio
 import aiohttp
 from bs4 import BeautifulSoup
 
-
 base_url = 'https://www.acmicpc.net/user/'
-USERS = ['vaporize93', 'doo9713', '21pori30', 'blackhead', 'cnrjsdn', 'iowa329', 'qlqhqlqh125', ]
-USER_COLORS = {'vaporize93': 1,
-          'doo9713': 2,
-          '21pori30': 3,
-          'blackhead': 4,
-          'cnrjsdn': 5,
-          'iowa329': 6,
-          'qlqhqlqh125': 7,
+USER_COLORS = {
+    'vaporize93': 1,
+    'doo9713': 2,
+    '21pori30': 3,
+    'blackhead': 4,
+    'cnrjsdn': 5,
+    'iowa329': 6,
+    'qlqhqlqh125': 7,
 }
 PROBLEMS = {
     '1회차': [2557, 1000, 2558, 10950, 10951, 10953, 11021, 11022, 11718, 11719, 11720, 11721],
@@ -34,13 +33,13 @@ def colored_user(user):
 
 def colored(string, color=7):
     if 0 < color < 8:
-        string = '\x1b[1;%s;40m%s\x1b[0m' % (color+30, string)
+        string = '\x1b[1;%s;40m%s\x1b[0m' % (color + 30, string)
     return string
 
 
 async def get_user_solved_problem(u):
     async with aiohttp.ClientSession() as session:
-        async with session.get(base_url+u) as response:
+        async with session.get(base_url + u) as response:
             html_doc = await response.text()
     soup = BeautifulSoup(html_doc, 'html.parser')
     solvs = soup.find('div', class_='panel-body').find_all('span', class_='problem_number')
@@ -51,19 +50,18 @@ async def get_user_solved_problem(u):
         problem[u].append(num)
 
 
-loop = asyncio.get_event_loop()
-loop.run_until_complete(
-    asyncio.gather(
-        *(get_user_solved_problem(u) for u in USERS)
+if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(
+        asyncio.gather(
+            *(get_user_solved_problem(u) for u in USER_COLORS.keys())
+        )
     )
-) 
-loop.close()
+    loop.close()
 
-
-for i in PROBLEMS.keys():
-    print(f'======= {i} 아직 못 푼 문제 =======')
-    for (u, ps) in problem.items():
-        l = [x for x in PROBLEMS[i] if x not in list(map(int, ps))]
-        if l:
-            print(f' - {colored_user(u)} {l}')
-
+    for i in PROBLEMS.keys():
+        print(f'======= {i} 아직 못 푼 문제 =======')
+        for (u, ps) in problem.items():
+            l = [x for x in PROBLEMS[i] if x not in list(map(int, ps))]
+            if l:
+                print(f' - {colored_user(u)} {l}')
