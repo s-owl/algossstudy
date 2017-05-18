@@ -9,7 +9,7 @@ var input = require('fs').readFileSync('./stdin/10989').toString().trim().split(
 
 console.log(input);
 
-
+// 메모리
 
 // input = CountingSort(input, 0, input.length);
 

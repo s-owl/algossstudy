@@ -1,15 +1,15 @@
-import sys
-
-read = lambda : sys.stdin.readline().strip()
+# import sys
+import random
+# read = lambda : sys.stdin.readline().strip()
 stack = []
 result = []
-N = int(read())
-l = []
+# N = int(read())
+l = random.randint(1, 10000)
 s = 0
 prev = 0
 
-for _ in range(N):
-    l.append(int(read()))
+# for _ in range(N):
+    # l.append(int(read()))
 
 
 for now in l:
