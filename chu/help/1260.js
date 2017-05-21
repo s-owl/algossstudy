@@ -29,7 +29,7 @@
 
     // N = 개수, M = 간선, V = 탐색을 시작할 정점
     var N, M, V;
-    var input = require('fs').readFileSync('./stdin/1260')
+    var input = require('fs').readFileSync('../stdin/1260')
     .toString().split('\n').map(function(e, i){
         e = e.trim().split(' ');
         if(i === 0){
@@ -79,14 +79,9 @@
     }
 
     // 리스트 출력
-    console.log(find_list(list, 1));
-    console.log(find_list(list, 2));
-    console.log(find_list(list, 3));
-    console.log(find_list(list, 4));
-    console.log(find_list(list, 5));
-    console.log(find_list(list, 6));
-    console.log(find_list(list, 7));
-    console.log(find_list(list, 8));
+    for(var i = 1; i <= N; i++){
+        console.log(find_list(list, i));
+    }
 
     var show = [];
     function DFS(list, val){
@@ -119,8 +114,16 @@
 
     // 함수 실행
     DFS(list, V);
-    for(var i = V; i < N; i++){
-        BFS(list, i);
+
+    var i = V;
+    for(var j = 0; j < N; j++){
+        if( i % N === 0){
+            BFS(list, i);
+        }else{
+            i = i % N;
+            BFS(list, i);
+        } 
+        i++;
     }
     // DFS 출력
     show.forEach(function(e){
@@ -132,4 +135,8 @@
         process.stdout.write(e+" ");
     });
 })();
+
+// 으음... 도와주세요
+// 예제는 잘뜨는데 
+// 
 
