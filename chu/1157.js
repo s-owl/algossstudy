@@ -1,30 +1,15 @@
 function main(){
-    var input = require('fs').readFileSync('./stdin/1157').toString().split('');
+    var input = require('fs').readFileSync('./stdin/1157').toString().split('')
+    .map(function(e){
+        return e.toLowerCase();
+    });
     console.log(input);
 
-    var d = {};
+    var leng = input.length;
 
-    var mymap = new Map();
-    input.forEach(function(e){
-        mymap.set(e, 0);
-    });
-
-    input.forEach(function(e){
-        num = mymap.get(e);
-        mymap.set(e, ++num);
-    });
-    mymap.forEach(function(v, k){
-        checkMax(v, k);
-    })
-    console.log(mymap);
-    console.log(mymap.entries());
+    for(var i = 0; i < leng; i++){
+        
+    }
+    
 }
-
-var checkMax = function(v, k){
-   var max;
-   
-}
-
 main();
-
-// Map이 아닌가벼..

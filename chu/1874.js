@@ -2,7 +2,6 @@ var timer = "main";
 console.time(timer);
     
 function main(){
-    // var max = 100000;
     var max = 0;
     var input = require('fs').readFileSync('./stdin/1874').toString().split('\n')
     .filter(function(e, i){
@@ -13,27 +12,23 @@ function main(){
         e = e.trim();
         return parseInt(e);
     });
-
-    // 테스트
-    // var input2 = [];
-    // for(var j = 0; j < max; j++){
-    //     input2.push(Math.floor(Math.random()*max));
-    // }
     
-    var stack = [];
-    input.forEach(function(e){
-        if(e > stack.length){
-            for(var i = stack.length; i < e; i++){
-                stack.push(1);
-                console.log("+");
-            }
-            console.log("-");
-        } else if( e < stack.length ) {
-            console.log("-");
+    var stack = {
+        'max': 0,
+        'arr': []
+    };
+    input.forEach(function(e, i){
+        if(stack.max > e){
+            stack.arr.push('-');
         } else {
-            console.log("NO");
+            for(var i = stack.max; i < e; i++){
+                stack.arr.push('+');
+            }
+            stack.arr.push('-');
+            stack.max = e;
         }
     });
+    console.log(stack.arr.toString().replace(/,/g,'\n'));
 };
 main();
 console.timeEnd(timer);
