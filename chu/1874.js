@@ -13,22 +13,88 @@ function main(){
         return parseInt(e);
     });
     
-    var stack = {
-        'max': 0,
-        'arr': []
-    };
-    input.forEach(function(e, i){
-        if(stack.max > e){
-            stack.arr.push('-');
-        } else {
-            for(var i = stack.max; i < e; i++){
-                stack.arr.push('+');
+    var stack = [];
+    for(var i = 1; i <= max; i++){
+        stack.push(i);
+    }
+
+    // var maxVal = 0;
+    // var secVal = 0;
+    // var stack2 = [];
+    // var stack3 = [];
+
+    // input.forEach(function(e){
+    //     if(maxVal < e) {
+    //         // if(maxVal == 0){
+    //         //     secVal = 0;
+    //         // } else {
+    //         //     secVal = e - maxVal;
+    //         // }
+    //         secVal = maxVal;
+    //         maxVal = e;
+    //     }
+    //     if(maxVal <= e){
+    //         for(var i = secVal+1; i <= maxVal; i++){
+    //             stack2.push(i);
+    //             // console.log("+");
+    //             stack3.push("+");
+    //         }
+    //         // console.log("-");
+    //         stack3.push("-");
+    //         stack2.pop();  
+    //     } else { 
+    //         if( stack2[stack2.length-1] !== e){
+    //             console.log("NO");
+    //             process.exit();
+    //         }
+    //         // console.log("-");
+    //         stack3.push("-");
+    //         stack2.pop();
+    //     }
+    // });
+
+    // stack3.forEach(function(e){
+    //     console.log(e);
+    // });
+
+    var stack2 = [];
+    var stack3 = [];
+    input.forEach(function(e){
+        // 없을 때
+        if(stack2.indexOf(e) < 0){
+            console.log("[stack] "+stack);
+            var shift = stack.shift();
+            if(shift === undefined){
+                console.log("NO");
+                process.exit();
             }
-            stack.arr.push('-');
-            stack.max = e;
-        }
+            console.log("shift "+shift+", element "+e);
+
+            for(var i = shift; i <= e; i++){
+                if(i === shift){
+                    stack2.push(shift);
+                } else {
+                    stack2.push(stack.shift());
+                }
+                console.log(stack2);
+                // console.log("+");
+                stack3.push("+");
+            }
+            stack2.pop();
+            stack3.push("-");
+            // console.log("-");
+        } else {
+            // stack2에 값이 있을 때
+            stack2.pop();
+            console.log("[pop] "+stack2);
+            // console.log("-");
+            stack3.push("-");
+        }   
     });
-    console.log(stack.arr.toString().replace(/,/g,'\n'));
+
+    stack3.forEach(function(e){
+        console.log(e);
+    });
 };
 main();
 console.timeEnd(timer);
