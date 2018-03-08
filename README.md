@@ -2,7 +2,7 @@
 
 성공회대학교 소모임 SSS의 알고리즘 스터디입니다.
 
-스터디의 진행상황은 [sss wiki](https://skhu-sss.github.io/wiki/studies/algorithm/)에서 확인할 수 있습니다.
+스터디의 진행상황은 [Wiki](https://s-owl.github.io/wiki/studies/algorithm_study/)에서 확인할 수 있습니다.
 
 
 ## Member
